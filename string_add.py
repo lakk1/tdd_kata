@@ -1,4 +1,7 @@
 def add(val):
-    if val == "1":
-        return 1
-    return 0
+    if not val:
+        return 0
+    numbers = val.split(",")
+    parsed_numbers = [int(number) for number in numbers]
+    total = sum(parsed_numbers)
+    return total

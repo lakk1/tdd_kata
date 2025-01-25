@@ -1,4 +1,4 @@
-from string_add_test import add
+from string_add import add
 
 
 def test_empty_string():
@@ -14,4 +14,4 @@ def test_two_numbers():
 
 
 def test_multiple_numbers():
-    assert add("1,2,3,4") == 10
+    assert add("1,2,3,45") == 51
