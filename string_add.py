@@ -16,5 +16,6 @@ def add(val):
     if negatives:
         raise ValueError(f"negatives not allowed: {negatives}")
 
-    total = sum(parsed_numbers)
+    filtered_numbers = [num for num in parsed_numbers if num <= 1000]
+    total = sum(filtered_numbers)
     return total
