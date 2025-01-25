@@ -6,7 +6,8 @@ def parse_delimiter(val):
         parts = val.split("\n", 1)
         delimiter_part = parts[0][2:]
         if delimiter_part.startswith("[") and delimiter_part.endswith("]"):
-            delimiter = re.escape(delimiter_part[1:-1])
+            delimiters = re.findall(r"\[(.*?)\]", delimiter_part)
+            delimiter = "|".join(map(re.escape, delimiters))
         else:
             delimiter = re.escape(delimiter_part)
         return delimiter, parts[1]
