@@ -11,5 +11,10 @@ def add(val):
     val = val.replace("\n", delimiter)
     numbers = val.split(delimiter)
     parsed_numbers = [int(number) for number in numbers]
+
+    negatives = [num for num in parsed_numbers if num < 0]
+    if negatives:
+        raise ValueError(f"negatives not allowed: {negatives}")
+
     total = sum(parsed_numbers)
     return total

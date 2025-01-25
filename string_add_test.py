@@ -1,3 +1,4 @@
+import pytest
 from string_add import add
 
 
@@ -27,3 +28,10 @@ def test_custom_delimiter():
     assert add("//.\n1.2.3") == 6
     assert add("//|\n1|2|3") == 6
     assert add("//-\n1-2-3") == 6
+
+
+def test_negative_numbers():
+    with pytest.raises(ValueError, match=r"negatives not allowed: \[-1\]"):
+        add("1,-1")
+    with pytest.raises(ValueError, match=r"negatives not allowed: \[-2, -3\]"):
+        add("1,-2,-3")
