@@ -41,3 +41,9 @@ def test_ignore_numbers_above_1000():
     assert add("2,1001") == 2
     assert add("1000,999,2") == 2001
     assert add("1000,1001,2") == 1002
+
+
+def test_custom_delimiter_any_length():
+    assert add("//[***]\n1***2***3") == 6
+    assert add("//[;;]\n1;;2;;3") == 6
+    assert add("//[---]\n1---2---3") == 6
