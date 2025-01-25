@@ -1,1 +1,4 @@
-String calculator TDD kata - Python
+# String Calculator TDD Kata - Python
+
+
+Unit tests are written using `pytest`.
