@@ -1,32 +1,49 @@
 import re
 
+MAX_NUMBER = 1000
+DEFAULT_DELIMITER = ","
+CUSTOM_PREFIX = "//"
+START_WITH = "["
+ENDS_WITH = "]"
+SEPARATOR = "|"
+VALIDATION_STRING = "negatives not allowed:"
+
 
 def parse_delimiter(val):
-    if val.startswith("//"):
+    if val.startswith(CUSTOM_PREFIX):
         parts = val.split("\n", 1)
         delimiter_part = parts[0][2:]
-        if delimiter_part.startswith("[") and delimiter_part.endswith("]"):
+        if delimiter_part.startswith(START_WITH) and delimiter_part.endswith(ENDS_WITH):
             delimiters = re.findall(r"\[(.*?)\]", delimiter_part)
-            delimiter = "|".join(map(re.escape, delimiters))
+            delimiter = SEPARATOR.join(map(re.escape, delimiters))
         else:
             delimiter = re.escape(delimiter_part)
         return delimiter, parts[1]
-    return ",", val
+    return DEFAULT_DELIMITER, val
 
 
-def add(val):
-    if not val:
+def valid_numbers(delimiter, number_string):
+    number_string = number_string.replace("\n", delimiter)
+    numbers = re.split(delimiter, number_string)
+    return [int(number) for number in numbers]
+
+
+def validate_negatives(numbers):
+    negatives = [num for num in numbers if num < 0]
+    if negatives:
+        raise ValueError(f"{VALIDATION_STRING} {negatives}")
+
+
+def add(input_string):
+    if not input_string:
         return 0
 
-    delimiter, val = parse_delimiter(val)
-    val = val.replace("\n", delimiter)
-    numbers = re.split(delimiter, val)
-    parsed_numbers = [int(number) for number in numbers]
+    delimiter, number_string = parse_delimiter(input_string)
 
-    negatives = [num for num in parsed_numbers if num < 0]
-    if negatives:
-        raise ValueError(f"negatives not allowed: {negatives}")
+    parsed_numbers = valid_numbers(delimiter, number_string)
 
-    filtered_numbers = [num for num in parsed_numbers if num <= 1000]
+    validate_negatives(parsed_numbers)
+
+    filtered_numbers = [num for num in parsed_numbers if num <= MAX_NUMBER]
     total = sum(filtered_numbers)
     return total
