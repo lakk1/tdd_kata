@@ -1,4 +1,3 @@
-# README.md Content
 # Media Processing Project
 
 ## Overview
