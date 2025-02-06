@@ -31,13 +31,14 @@ class CaptionGenerator:
                     segment['text'],
                     font=CAPTION_FONT,
                     fontsize=CAPTION_FONTSIZE,
-                    color=CAPTION_COLOR,
+                    color='black',  # Set text color to black
                     stroke_color=CAPTION_STROKE_COLOR,
                     stroke_width=CAPTION_STROKE_WIDTH,
                     size=(VIDEO_WIDTH-100, None),
-                    method='caption'
+                    method='caption',
+                    bg_color='white'  # Set background color to white
                 )
-                .set_position(('center', VIDEO_HEIGHT-200))
+                .set_position(('center', VIDEO_HEIGHT * 0.7))  # Position 20% above the bottom
                 .set_start(segment['start'])
                 .set_end(segment['end']))
                 
